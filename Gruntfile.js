@@ -14,13 +14,13 @@ module.exports = function (grunt) {
     },
     watch: {
       files: [ 'Gruntfile.js', 'test/**/*.js', './**/*.js' ],
-      tasks: [ 'default' ]
+      tasks: [ 'cafemocha' ]
     }
   });
 
   grunt.loadNpmTasks('grunt-cafe-mocha');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', [ 'cafemocha' ]);
+  grunt.registerTask('default', [ 'cafemocha', 'watch' ]);
 
 };
