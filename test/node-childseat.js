@@ -14,7 +14,7 @@ describe("node-childseat.js", function () {
   });
 
   xit("should create a new ChildProcess when .create() is called", function (done) {
-    var child = Childseat.create('testServer.js');
+    var child = Childseat.fork('testServer.js');
     setTimeout(function () {
       expect(child.pid).to.exist;
       child.kill();
@@ -23,7 +23,7 @@ describe("node-childseat.js", function () {
   });
 
   it("should set CHILD_PROCESS to true if process.send does exist", function (done) {
-    var child = Childseat.create('testServer.js');
+    var child = Childseat.fork('testServer.js');
     setTimeout(function () {
       child.send({ listen : "all" });
       setTimeout(function () {

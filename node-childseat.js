@@ -4,12 +4,13 @@ var fork = require('child_process').fork;
 module.exports = (function () {
 
   var Childseat = {};
+  var CHILDSEAT_REGISTER_FUNCTION = "CHILDSEAT_REGISTER_FUNCTION";
 
   // If process.send exists, then this is a child process
   Childseat.CHILD_PROCESS = process.send ? true : false;
 
   if (Childseat.CHILD_PROCESS) {
-    extractGlobal();
+    process.nextTick(registerExports);
     process.on('message', function (m) {
       if(m.get) {
         if(m.get === "CHILD_PROCESS") {
@@ -28,6 +29,28 @@ module.exports = (function () {
     });
   };
 
+  function registerExports () {
+    var exportObject = copy(module.parent.exports);
+    var sendObject = {};
+    sendObject[CHILDSEAT_REGISTER_FUNCTION] = exportObject;
+    process.send(sendObject);
+  }
+
+  function copy(target) {
+    var result = {};
+    var type = typeof(target);
+    if (type === 'function') {
+      return 'function';
+    } else if (type === 'object') {
+      for (var key in target) {
+        result[key] = copy(target[key]);
+      }
+      return result;
+    } else {
+      return target;
+    }
+  }
+
   function extractGlobal () {
     console.log("*** EXAMINING GLOBAL SCOPE ***"); 
     for(var i in global) {
@@ -43,8 +66,12 @@ module.exports = (function () {
     console.log("*** APPLY SINGLE ***"); 
   };
 
-  Childseat.create = function (path, args, options) {
-    return fork(path, args, options);
+  Childseat.fork = function (path, args, options) {
+    var child = fork(path, args, options);
+    child.on('message', function(m) {
+      console.log("child registering function: " + JSON.stringify(m));
+    });
+    return child;
   };
 
   return Childseat;
