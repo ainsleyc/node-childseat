@@ -5,6 +5,8 @@ module.exports = (function () {
 
   var Childseat = {};
   var CHILDSEAT_REGISTER_FUNCTION = "CHILDSEAT_REGISTER_FUNCTION";
+  var CHILDSEAT_CALL_FUNCTION = "CHILDSEAT_CALL_FUNCTION";
+  var CHILDSEAT_SET_VARIABLE = "CHILDSEAT_SET_VARIABLE";
 
   // If process.send exists, then this is a child process
   Childseat.CHILD_PROCESS = process.send ? true : false;
@@ -64,6 +66,10 @@ module.exports = (function () {
 
   function applySingle(functionName) {
     console.log("*** APPLY SINGLE ***"); 
+  };
+
+  function callFunction(name, args) {
+    
   };
 
   Childseat.fork = function (path, args, options) {
