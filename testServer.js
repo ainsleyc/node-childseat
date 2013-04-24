@@ -1,7 +1,9 @@
-process.nextTick(function () {console.log("testServer: exports=" + JSON.stringify(module.exports))});
+//process.nextTick(function () {console.log("testServer: exports=" + JSON.stringify(module.exports))});
 
 var connect = require("connect");
 var Childseat = require("./node-childseat");
+
+
 
 connect.createServer(
   connect.static(__dirname)

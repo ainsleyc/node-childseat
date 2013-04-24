@@ -80,6 +80,10 @@ module.exports = (function () {
     return child;
   };
 
+  Childseat.sync = function () {
+
+  };
+
   return Childseat;
 
 })();
