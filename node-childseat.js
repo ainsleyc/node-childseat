@@ -4,13 +4,37 @@ var fork = require('child_process').fork;
 module.exports = (function () {
 
   var Childseat = {};
+  var functionArray = {};
   var CHILDSEAT_REGISTER_FUNCTION = "CHILDSEAT_REGISTER_FUNCTION";
   var CHILDSEAT_CALL_FUNCTION = "CHILDSEAT_CALL_FUNCTION";
   var CHILDSEAT_SET_VARIABLE = "CHILDSEAT_SET_VARIABLE";
+  var CHILDSEAT_ADD_FUNCTION = "CHILDSEAT_ADD_FUNCTION";
 
   // If process.send exists, then this is a child process
   Childseat.CHILD_PROCESS = process.send ? true : false;
 
+  // PARENT PROCESS FUNCTIONS
+  Childseat.fork = function (path, args, options) {
+    var child = fork(path, args, options);
+    child.on('message', function(m) {
+      processMessage(this, m);
+    });
+    return child;
+  };
+
+  function processMessage(child, message) {
+    if(message.CHILDSEAT_ADD_FUNCTION) {
+      child[message.CHILDSEAT_ADD_FUNCTION] = function() {
+        // TBD
+      }
+    }
+  };
+
+  function callFunction(name, args) {
+
+  };
+
+  /*
   if (Childseat.CHILD_PROCESS) {
     process.nextTick(registerExports);
     process.on('message', function (m) {
@@ -37,7 +61,7 @@ module.exports = (function () {
     sendObject[CHILDSEAT_REGISTER_FUNCTION] = exportObject;
     process.send(sendObject);
   }
-
+  
   function copy(target) {
     var result = {};
     var type = typeof(target);
@@ -67,20 +91,21 @@ module.exports = (function () {
   function applySingle(functionName) {
     console.log("*** APPLY SINGLE ***"); 
   };
-
+  */
   function callFunction(name, args) {
     
   };
 
-  Childseat.fork = function (path, args, options) {
-    var child = fork(path, args, options);
-    child.on('message', function(m) {
-      console.log("child registering function: " + JSON.stringify(m));
-    });
-    return child;
+  Childseat.add = function (name, func) {
+    if(Childseat.CHILD_PROCESS) {
+      functionArray[name] = func;
+      var message = {};
+      message[CHILDSEAT_ADD_FUNCTION] = name;
+      process.send(message);
+    }
   };
 
-  Childseat.sync = function () {
+  Childseat.remove = function (name) {
 
   };
 
