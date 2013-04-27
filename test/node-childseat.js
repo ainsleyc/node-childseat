@@ -23,7 +23,7 @@ describe("node-childseat.js", function () {
     });
   });
 
-  describe("child creation", function () {
+  describe("child behavior", function () {
     
     var child;
     beforeEach(function (done) {
@@ -46,7 +46,13 @@ describe("node-childseat.js", function () {
       expect(typeof(child.testFunction1)).to.equal('function');
       expect(child.testFunction2).to.exist;
       expect(typeof(child.testFunction2)).to.equal('function');
+      expect(child.testFunction3).to.exist;
+      expect(typeof(child.testFunction3)).to.equal('function');
+      expect(child.testFunction4).to.exist;
+      expect(typeof(child.testFunction4)).to.equal('function');
     });
+
+    it("should throw error if a function is called by parent that was not registered");
 
     it("should call child function when child.function() is called", function (done) {
       child.on('message', function (message) {
@@ -56,6 +62,8 @@ describe("node-childseat.js", function () {
       });
       child.testFunction1();
     });
+
+    it("should throw error if a function is called by child that was not registered");
 
     it("should pass arguments to child.function()", function (done) {
       child.on('message', function (message) {
@@ -68,12 +76,43 @@ describe("node-childseat.js", function () {
       child.testFunction2("testInput", 20, false);
     });
 
-    xit("should return to parent whatever is returned by child.function()", function (done) {
-      done(); 
+    it("should call parent callback when provided", function (done) {
+      child.testFunction3("testInput", function () {
+        done();
+      });
     });
 
-    xit("should call parent callback when provided", function (done) {
-      done(); 
+    it("should pass arguments from child back to parent callback", function (done) {
+      child.testFunction4(function () {
+        expect(arguments[0] === "testInput");
+        expect(arguments[1] === 50);
+        expect(arguments[2] === true);
+        done();
+      });
+    });
+
+    xit("should delete temp callback when it has been called", function (done) {
+      child.testFunction3("testInput", function () {
+        done();
+      });
+    });
+
+    xit("should not allow functions other than callback to be passed in to child", function (done) {
+      child.testFunction3("testInput", function () {
+        done();
+      });
+    });
+
+    xit("should set 'this' to null during child function call", function (done) {
+      child.testFunction3("testInput", function () {
+        done();
+      });
+    });
+
+    xit("should set 'this' to null during parent function call", function (done) {
+      child.testFunction3("testInput", function () {
+        done();
+      });
     });
   });
 

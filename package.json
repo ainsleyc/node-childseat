@@ -2,6 +2,9 @@
     "name": "node-childseat"
   , "version": "0.0.1"
   , "private": true
+  , "dependencies": {
+    "node-uuid": "1.4.x"
+  }
   , "devDependencies": {
       "mocha": "1.8.x"
     , "chai": "1.5.x"

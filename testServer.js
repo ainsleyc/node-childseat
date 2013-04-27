@@ -10,17 +10,18 @@ function testFunction2 () {
   process.send({ result : arguments });
 }
 
-function testFunction3 () {
-  return "testFunction3";
+function testFunction3 (value, callback) {
+  callback("testFunction3");
 }
 
-function testFunction4 (value, callback) {
-  callback("testFunction4");
+function testFunction4 (callback) {
+  callback("testInput", 50, true);
 }
 
 Childseat.add("testFunction1", testFunction1);
 Childseat.add("testFunction2", testFunction2);
 Childseat.add("testFunction3", testFunction3);
+Childseat.add("testFunction4", testFunction4);
 
 connect.createServer(
   connect.static(__dirname)
