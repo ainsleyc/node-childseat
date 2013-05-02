@@ -1,7 +1,7 @@
 {
     "name": "node-childseat"
   , "version": "0.0.1"
-  , "private": true
+  , "private": false
   , "dependencies": {
     "node-uuid": "1.4.x"
   }
@@ -12,8 +12,6 @@
     , "grunt-contrib-watch": "0.3.x"
     , "grunt-contrib-jshint": "0.3.x"
     , "grunt-cafe-mocha": "0.1.x"
-    , "rewire": "1.1.x"
-    , "sinon": "1.6.x"
     , "connect": "2.7.x"
   }
 }
