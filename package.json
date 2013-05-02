@@ -1,7 +1,8 @@
 {
-    "name": "node-childseat"
+    "name": "childseat"
   , "version": "0.0.1"
   , "private": false
+  , "main": "./childseat.js"
   , "dependencies": {
     "node-uuid": "1.4.x"
   }

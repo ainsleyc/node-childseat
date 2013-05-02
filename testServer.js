@@ -1,6 +1,6 @@
 
 var connect = require("connect");
-var Childseat = require("./node-childseat");
+var Childseat = require("./childseat");
 
 function testFunction1 () {
   process.send({ result : "testFunction1" });

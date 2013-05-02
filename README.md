@@ -10,7 +10,7 @@ Childseat detects whether it has been required in a parent or child process and 
 ### child.js:
 
 ```javascript
-var Childseat = require('node-childseat');
+var Childseat = require('childseat');
 
 var childFunction (arg1, arg2, callback) {
   // Do something
@@ -25,7 +25,7 @@ Childseat.add('childFunction', childFunction);
 ### parent.js:
 
 ```javascript
-var Childseat = require('node-childseat');
+var Childseat = require('childseat');
 
 var child = Childseat.fork('child.js');
 
