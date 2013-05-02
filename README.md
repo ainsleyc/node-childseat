@@ -15,6 +15,7 @@ var Childseat = require('node-childseat');
 var childFunction (arg1, arg2, callback) {
   // Do something
   console.log("I receieved " + arg1 + " and " + arg2 + " from my parent!");
+  var result = arg1 + arg2;
   callback(result);
 }
 
@@ -31,7 +32,8 @@ var child = Childseat.fork('child.js');
 // Child processes take some time to spin up, as per node's child_process documentation
 setTimeout(function () {
   child.childFunction(value1, value2, function (result) {
-    console.log("I received " + results + " from my child!")
+    console.log("I received " + results + " from my child!");
+    expect(result).to.equal(value1 + value2);
   });
 }, 1000);
 ```
