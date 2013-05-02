@@ -14,6 +14,7 @@ var Childseat = require('node-childseat');
 
 var childFunction (arg1, arg2, callback) {
   // Do something
+  console.log("I receieved " + arg1 + " and " + arg2 + " from my parent!");
   callback(result);
 }
 
