@@ -30,7 +30,7 @@ var child = Childseat.fork('child.js');
 
 // Child processes take some time to spin up, as per node's child_process documentation
 setTimeout(function () {
-  child.(value1, value2, function (result) {
+  child.childFunction(value1, value2, function (result) {
     console.log("I received " + results + " from my child!")
   });
 }, 1000);
