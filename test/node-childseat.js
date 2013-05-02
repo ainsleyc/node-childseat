@@ -114,6 +114,19 @@ describe("node-childseat.js", function () {
         done();
       });
     });
+
+    it("should remove functions when remove() is called", function(done) {
+      child.on('message', function (message) {
+        if (message.result === 'removeFunctions') {
+          expect(child.testFunction1).to.not.exist;
+          expect(child.testFunction2).to.not.exist;
+          expect(child.testFunction3).to.not.exist;
+          expect(typeof(child.testFunction4)).to.equal('function');
+          done();
+        }
+      });
+      child.removeFunctions();
+    });
   });
 
 });

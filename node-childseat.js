@@ -52,6 +52,9 @@ module.exports = (function () {
         child.send(command);
       }
     }
+    if (message.CHILDSEAT_REMOVE_FUNCTION) {
+      child[message.CHILDSEAT_REMOVE_FUNCTION] = undefined;
+    }
     if (message.CHILDSEAT_CHILD_CALLBACK) {
       var argArray = convertArgs(arguments);
       callbacks[message.CHILDSEAT_CHILD_CALLBACK].apply(null, argArray);
@@ -73,6 +76,12 @@ module.exports = (function () {
     };
 
     Childseat.remove = function (name) {
+      if (functionArray[name]) {
+        functionArray[name] = undefined;
+        var message = {};
+        message[CHILDSEAT_REMOVE_FUNCTION] = name;
+        process.send(message);
+      }
       // TBD
     };
   }
