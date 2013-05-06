@@ -15,7 +15,7 @@ function testFunction3 (value, callback) {
 }
 
 function testFunction4 (callback) {
-  callback("testInput", 50, true);
+  callback("testInput", 50, true, ["array1", "array2"], {key1:"value1", key2:"value2"});
 }
 
 function removeFunctions () {

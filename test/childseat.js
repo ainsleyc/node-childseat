@@ -52,6 +52,8 @@ describe("node-childseat.js", function () {
       expect(typeof(child.testFunction4)).to.equal('function');
     });
 
+    it("should not override functions already defined by node's ChildProcess");
+
     it("should throw error if a function is called by parent that was not registered");
 
     it("should call child function when child.function() is called", function (done) {
@@ -87,9 +89,19 @@ describe("node-childseat.js", function () {
         expect(arguments[0] === "testInput");
         expect(arguments[1] === 50);
         expect(arguments[2] === true);
+        expect(arguments[3][0] === 'array1');
+        expect(arguments[3][1] === 'array2');
+        expect(arguments[4].key1 === 'value1');
+        expect(arguments[4].key2 === 'value2');
         done();
       });
     });
+
+    it("should not pass any arguments back to the parent if the child calls parent with not callback")
+
+    it("should only attempt to call callback if last passed in arguement is a function (even if function definition says it should)");
+
+    it("should be able to accept server.kill directly in api/test/harness/lib/server/index.js");
 
     xit("should delete temp callback when it has been called", function (done) {
       child.testFunction3("testInput", function () {

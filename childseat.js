@@ -56,7 +56,7 @@ module.exports = (function () {
       child[message.CHILDSEAT_REMOVE_FUNCTION] = undefined;
     }
     if (message.CHILDSEAT_CHILD_CALLBACK) {
-      var argArray = convertArgs(arguments);
+      var argArray = convertArgs(message.args);
       callbacks[message.CHILDSEAT_CHILD_CALLBACK].apply(null, argArray);
       delete callbacks[message.CHILDSEAT_CHILD_CALLBACK];
     }
@@ -82,7 +82,6 @@ module.exports = (function () {
         message[CHILDSEAT_REMOVE_FUNCTION] = name;
         process.send(message);
       }
-      // TBD
     };
   }
 
